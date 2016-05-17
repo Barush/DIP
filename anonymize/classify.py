@@ -28,19 +28,19 @@ def run(model_file, pretrained_net, crops_path, caffe_root):
 	for i in range(255):
 		os.mkdir("../data/conv5/"+str(i))
 
-	true_f = open("../data/lists/all.txt", 'w')
+	true_f = open("results/cars/spz_true.csv", 'w')
 
 	for img in images:
 		print img
-		img = crops_path+'/'+img
+		img = crops_path+img
 		input_image = caffe.io.load_image(img)
 		prediction = net.predict([input_image]) 
 		#print net.blobs
-		data = net.blobs['fc7'].data[0][i]
-		np.savetxt("../data/fc7/"+str(i)+"/"+os.path.basename(img)+".txt", data)
+		data = net.blobs['fc7'].data[0]
+		np.savetxt("data/fc7/"+os.path.basename(img)+".txt", data)
 		for i in range(255):
 			data = net.blobs['conv5'].data[0][i]
-			np.savetxt("../data/conv5/"+str(i)+"/"+os.path.basename(img)+".txt", data)
+			np.savetxt("data/conv5/"+str(i)+"/"+os.path.basename(img)+".txt", data)
 		print prediction[0].argmax()
 		if prediction[0].argmax() == 1:
 			true_f.write(img+"\n")

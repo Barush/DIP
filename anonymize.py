@@ -75,11 +75,11 @@ def main(argv):
 	# classify:
 	#	-> zavolani skriptu panorama_classify.py
 	#	-> klasifikace vsech vstupu
-	# print "Classifying crops..."
-	# car_weights = params.anonympath+"/car_detection/panorama_spz_iter_10000.caffemodel"
-	# car_architecture = params.anonympath+"/car_detection/deploy.prototxt"
-	# crops_path = params.srcpath+"/crops"
-	# classify.run(car_architecture, car_weights, crops_path, params.caffe_root)
+	print "Classifying crops..."
+	car_weights = params.anonympath+"/car_detection/panorama_spz_iter_10000.caffemodel"
+	car_architecture = params.anonympath+"/car_detection/deploy.prototxt"
+	crops_path = params.srcpath+"/crops"
+	classify.run(car_architecture, car_weights, crops_path, params.caffe_root)
 
 
 	# regression:
