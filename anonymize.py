@@ -69,8 +69,8 @@ def main(argv):
 	#print "Destination path: ", params.dstpath
 
 	# crop:
-	#print "Creating crops..."
-	#sp.call(["./anonymize/crop.sh", params.srcpath])
+	print "Creating crops..."
+	sp.call(["./anonymize/crop.sh", params.srcpath])
 
 	# classify:
 	#	-> zavolani skriptu panorama_classify.py
