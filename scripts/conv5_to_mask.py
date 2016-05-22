@@ -29,19 +29,19 @@ def linecnt(file):
 	return i+1
 
 def main():
-	modelfile = open('conv5_regression_architecture_sigm018.json', 'r')
+	modelfile = open('../results/nets/conv5_regression_architecture_relu8.json', 'r')
 	jsonmodel = next(modelfile)
 
 	model = model_from_json(jsonmodel)
-	model.load_weights('conv5_regression_weights_sigm018.h5')
+	model.load_weights('../results/nets/conv5_regression_weights_relu8.h5')
 	model.compile(optimizer='sgd', loss='mse')
-	datalen = linecnt("../data/lists/spz/valset1-1.csv")
-	dataset = load_conv5("../data/lists/spz/valset1-1.csv", datalen)
+	datalen = linecnt("../data/lists/spz_true.csv")
+	dataset = load_conv5("../data/lists/spz_true.csv", datalen)
 
 	prediction = model.predict(dataset);
 	print prediction.shape
 
-	f = open("../data/lists/spz/valset1-1.csv", 'r')
+	f = open("../data/lists/spz_true.csv", 'r')
 	trainlist = []
 	for line in f:
 		line = line.strip()
@@ -52,7 +52,7 @@ def main():
 	print "Trainlist len: ", len(trainlist)
 	
 	for i in range(len(prediction)):
-		np.savetxt("../results/masks/sigm/01/"+str(trainlist[i])+".txt", prediction[i][0])
+		np.savetxt("../results/masks/relu/compressed/"+str(trainlist[i])+".txt", prediction[i][0])
 
 if __name__ == '__main__':
 	main()

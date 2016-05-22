@@ -11,7 +11,7 @@ class FC7_loader():
 	data = np.empty([0,4096])	
 
 	def __init__(self):
-		dataset = open("../data/lists/oneimgtest.csv", 'r')
+		dataset = open("../data/lists/spz_true.csv", 'r')
 		
 		#item = next(dataset)
 		for item in dataset:
@@ -38,7 +38,7 @@ def main():
 	prediction = model.predict(dataset.data);
 	print prediction.shape
 
-	f = open("../data/lists/oneimgtest.csv", 'r')
+	f = open("../data/lists/spz_true.csv", 'r')
 	trainlist = []
 	for line in f:
 		line = line.strip()
@@ -49,7 +49,7 @@ def main():
 	print "Trainlist len: ", len(trainlist)
 	
 	for i in range(len(prediction)):
-		np.savetxt(str(trainlist[i])+".txt", prediction[i])
+		np.savetxt("../results/coords/"+str(trainlist[i])+".txt", prediction[i])
 
 if __name__ == '__main__':
 	main()

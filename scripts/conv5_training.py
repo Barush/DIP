@@ -27,7 +27,7 @@ def load_trg(datalist, size):
 	f_datalist = open(datalist, 'r')
 
 	for i, line in enumerate(f_datalist):
-		mask = np.loadtxt("../data/targets/sigm_0-1/compressed/"+line.strip()+"_target")
+		mask = np.loadtxt("../data/targets/relu_0-255/compressed/"+line.strip()+"_target")
 		for r in range(13):
 			for c in range(13):
 				data[i][0][r][c] = mask[r][c]
@@ -51,7 +51,7 @@ def main():
 	for i in range(8, 0, -1):
 		model = Sequential()
 		model.add(Convolution2D(1, 3, 3, border_mode = 'same', input_shape=(255/i, 13, 13)))
-		model.add(Activation('sigmoid'))
+		model.add(Activation('relu'))
 		# print Activation('relu').activation(np.ones(100))
 		# return
 		model.compile(optimizer='sgd', loss='mse')
@@ -67,8 +67,8 @@ def main():
 		#testtarget = load_trg(testfile, testcnt)
 
 		model_architecture = model.to_json()
-		open('conv5_regression_architecture_sigm01'+str(i)+'.json', 'w').write(model_architecture)
-		model.save_weights('conv5_regression_weights_sigm01'+str(i)+'.h5')
+		open('conv5_regression_architecture_relu'+str(i)+'.json', 'w').write(model_architecture)
+		model.save_weights('conv5_regression_weights_relu'+str(i)+'.h5')
 
 		#print model.metrics_names
 		#score = model.evaluate(testset, testtarget, batch_size = 16)
