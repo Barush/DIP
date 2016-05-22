@@ -6,13 +6,13 @@ import numpy as np
 
 
 def load_conv5(datalist, size):
-	data = np.zeros([size, 255, 13, 13])
+	data = np.zeros([size, 255/8, 13, 13])
 	f_datalist = open(datalist, 'r') 
 	i = 0
 
 	for line in f_datalist:
-		for f in range(255):
-			philter = np.loadtxt("/home/mapy/cafe_build/python/conv5/10000/"+str(f)+"/"+line.strip()+".txt")
+		for f in range(255/8):
+			philter = np.loadtxt("../data/conv5/"+str(f)+"/"+line.strip()+".txt")
 			for r in range(13):
 				for c in range(13):
 					assert i < 1992, "it's i!"
@@ -29,20 +29,19 @@ def linecnt(file):
 	return i+1
 
 def main():
-	modelfile = open('test.json', 'r')
+	modelfile = open('conv5_regression_architecture_sigm018.json', 'r')
 	jsonmodel = next(modelfile)
 
 	model = model_from_json(jsonmodel)
-	model.load_weights('conv5_regression_weights_relu_1test.h5')
+	model.load_weights('conv5_regression_weights_sigm018.h5')
 	model.compile(optimizer='sgd', loss='mse')
-
-	datalen = linecnt("../data/lists/oneimgtest.csv")
-	dataset = load_conv5("../data/lists/oneimgtest.csv", datalen)
+	datalen = linecnt("../data/lists/spz/valset1-1.csv")
+	dataset = load_conv5("../data/lists/spz/valset1-1.csv", datalen)
 
 	prediction = model.predict(dataset);
 	print prediction.shape
 
-	f = open("../data/lists/oneimgtest.csv", 'r')
+	f = open("../data/lists/spz/valset1-1.csv", 'r')
 	trainlist = []
 	for line in f:
 		line = line.strip()
@@ -53,7 +52,7 @@ def main():
 	print "Trainlist len: ", len(trainlist)
 	
 	for i in range(len(prediction)):
-		np.savetxt(str(trainlist[i])+".txt", prediction[i][0])
+		np.savetxt("../results/masks/sigm/01/"+str(trainlist[i])+".txt", prediction[i][0])
 
 if __name__ == '__main__':
 	main()

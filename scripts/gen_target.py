@@ -1,7 +1,7 @@
 import numpy as np
 import os
 
-TRUEVAL = 255
+TRUEVAL = 1
 FALSEVAL = 0
 
 def setSpz(trg, start_r, stop_r, start_c, stop_c):
@@ -51,9 +51,9 @@ def main():
 				#print "Let's set it. Now."
 				trg = setSpz(trg, start_r, stop_r, start_c, stop_c)
 
-		np.savetxt("../data/targets/relu_0-255/origsize/" + os.path.basename(filename) + "_target", trg, fmt='%i')
+		np.savetxt("../data/targets/sigm_0-1/origsize/" + os.path.basename(filename) + "_target", trg, fmt='%i')
 		cmpr = compress(trg)
-		np.savetxt("../data/targets/relu_0-255/compressed/" + os.path.basename(filename) + "_target", cmpr, fmt='%i')
+		np.savetxt("../data/targets/sigm_0-1/compressed/" + os.path.basename(filename) + "_target", cmpr, fmt='%i')
 	#np.savetxt("test", trg, fmt='%i')
 
 	#for i in range(20):

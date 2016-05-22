@@ -13,7 +13,7 @@ class FC7_loader():
 	data = np.empty([0,4096])	
 
 	def __init__(self):
-		dataset = open("../data/lists/spz_coords.csv", 'r')
+		dataset = open("../data/lists/spz_coords_normalized.csv", 'r')
 		
 		#item = next(dataset)
 		for item in dataset:
@@ -31,13 +31,13 @@ class FC7_loader():
 def main():
 	model = Sequential()
 	model.add(Dense(512, input_dim=4096, init='uniform'))
-	model.add(Activation('sigmoid'))
+	model.add(Activation('relu'))
 	model.add(Dense(128, init='uniform'))
-	model.add(Activation('sigmoid'))
+	model.add(Activation('relu'))
 	model.add(Dense(32, init='uniform'))
-	model.add(Activation('sigmoid'))
+	model.add(Activation('relu'))
 	model.add(Dense(4, init='uniform'))
-	model.add(Activation('linear'))
+	model.add(Activation('relu'))
 
 	model.compile(optimizer='sgd', loss='mse')
 	

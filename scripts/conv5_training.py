@@ -27,7 +27,7 @@ def load_trg(datalist, size):
 	f_datalist = open(datalist, 'r')
 
 	for i, line in enumerate(f_datalist):
-		mask = np.loadtxt("../data/targets/sigm_-1-1/compressed/"+line.strip()+"_target")
+		mask = np.loadtxt("../data/targets/sigm_0-1/compressed/"+line.strip()+"_target")
 		for r in range(13):
 			for c in range(13):
 				data[i][0][r][c] = mask[r][c]
@@ -66,9 +66,9 @@ def main():
 		#testset = load_conv5(testfile, testcnt, i)
 		#testtarget = load_trg(testfile, testcnt)
 
-		#model_architecture = model.to_json()
-		#open('conv5_regression_architecture_relu'+i+'.json', 'w').write(model_architecture)
-		#model.save_weights('conv5_regression_weights_relu'+i+'.h5')
+		model_architecture = model.to_json()
+		open('conv5_regression_architecture_sigm01'+str(i)+'.json', 'w').write(model_architecture)
+		model.save_weights('conv5_regression_weights_sigm01'+str(i)+'.h5')
 
 		#print model.metrics_names
 		#score = model.evaluate(testset, testtarget, batch_size = 16)
